@@ -1,5 +1,4 @@
-// 1353535 - MongoDB (User1)
-// mongodb+srv://User1:<password>@cluster0.c2dcotb.mongodb.net/db-contacts
+
 
 
 const express = require('express') // запуск бекенда

@@ -1,3 +1,7 @@
+// 1353535 - MongoDB (User1)
+// mongodb+srv://User1:<password>@cluster0.c2dcotb.mongodb.net/db-contacts
+
+
 const express = require('express') // запуск бекенда
 const logger = require('morgan') // мидлвар который выводит в консоль инфо про запрос
 const cors = require('cors'); // для коннекта фронта и бека

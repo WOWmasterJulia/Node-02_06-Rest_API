@@ -9,7 +9,7 @@ const router = express.Router();
 
 // маршруты:
 router.get("/contacts", ctrl.listContacts);
-router.get("/:id", isValidId, ctrl.getById);
+router.get("/contacts/:id", isValidId, ctrl.getById);
 router.post("/contacts", validateBody(schemas.addSchema), ctrl.addContact);
 router.put(
   "/contacts/:id",
@@ -18,7 +18,7 @@ router.put(
   ctrl.updateContact
 );
 router.patch(
-  "/:id/favorite",
+  "/contacts/:id/favorite",
   isValidId,
   validateBody(schemas.updateFavoriteSchema),
   ctrl.updateFavorite

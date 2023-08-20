@@ -1,7 +1,12 @@
 const express = require("express");
 
-const ctrl = require("../../controllers/contacts_all");
-// const ctrl = require("../controllers/index.js");
+
+
+// const ctrl = require("../../controllers/contacts_all");
+const ctrl = require("../../controllers/index.js");
+
+
+
 
 // const schemas = require("../../schemas/contacts");
 const { schemas } = require("../../models/contact");

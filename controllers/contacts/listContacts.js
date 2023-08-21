@@ -1,6 +1,6 @@
-const { Contact } = require("../../models/contact");
+const {Contact} = require("../../models/contact");
 
-const { HttpError, ctrlWrapper } = require("../../helpers");
+// const { HttpError, ctrlWrapper } = require("../../helpers");
 
 const listContacts = async (req, res) => {
   console.log("ListContacts");
@@ -8,6 +8,4 @@ const listContacts = async (req, res) => {
   res.json(result);
 };
 
-module.exports = {
-  listContacts: ctrlWrapper(listContacts),
-};
+module.exports = listContacts;

@@ -15,6 +15,4 @@ const getById = async (req, res) => {
 };
 
 
-module.exports = {  
-  getById: ctrlWrapper(getById),
-};
+module.exports = getById;

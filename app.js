@@ -1,7 +1,11 @@
 const express = require("express"); // запуск бекенда
 const logger = require("morgan"); // мидлвар который выводит в консоль инфо про запрос
 const cors = require("cors"); // для коннекта фронта и бека
-// require("dotenv").config();
+require("dotenv").config();
+
+
+const authRouter = require("./routes/api/auth");
+
 
 const contactsRouter = require("./routes/api/contacts"); // вставляем импорт из routs/api/contacts.js
 
@@ -13,6 +17,8 @@ app.use(logger(formatsLogger));
 app.use(cors()); // сокращенно Мидлвар(правило)
 app.use(express.json()); // смотрит какой тип Контент-тайп (в Постмане) и если json,
 // то строку переделывает на обьект
+
+app.use("/api/auth", authRouter);
 
 app.use("/api", contactsRouter); // правило - искать в контакт-роутер при таком запросе
 // мидлвар, подходит любому адресу:

@@ -4,7 +4,7 @@ const Joi = require("joi");
 
 
 
-// const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const userShema = new Schema(
   {
@@ -15,7 +15,7 @@ const userShema = new Schema(
     },
     email: {
       type: String,
-      // match: [emailRegexp, "must be in format text@text.domain"],
+      match: [emailRegexp, "must be in format text@text.domain"],
       required: [true, "Email is required field"],
       unique: true,
     },
@@ -32,6 +32,7 @@ const userShema = new Schema(
   { versionKey: false, timestamps: true }
 );
 userShema.post("save", handleMongooseError);
+
 const registerShema = Joi.object({
   email: Joi.string()
     .email({

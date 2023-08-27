@@ -5,8 +5,6 @@ require("dotenv").config();
 
 
 const authRouter = require("./routes/api/auth");
-
-
 const contactsRouter = require("./routes/api/contacts"); // вставляем импорт из routs/api/contacts.js
 
 const app = express(); // app - веб-сервер
@@ -19,7 +17,6 @@ app.use(express.json()); // смотрит какой тип Контент-та
 // то строку переделывает на обьект
 
 app.use("/api/auth", authRouter);
-
 app.use("/api", contactsRouter); // правило - искать в контакт-роутер при таком запросе
 // мидлвар, подходит любому адресу:
 app.use((req, res) => {

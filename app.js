@@ -28,6 +28,7 @@ app.use((err, req, res, next) => {
   const { status = 500, message = "Server error" } = err;
   // res.status(500).json({ message: err.message })
   // заменяем на:
+  console.log(status,message)
   res.status(status).json({ message });
 });
 

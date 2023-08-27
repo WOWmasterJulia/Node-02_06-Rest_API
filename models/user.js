@@ -2,11 +2,9 @@ const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
+// const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-
-const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-const userShema = new Schema(
+const userSchema = new Schema(
   {
     password: {
       type: String,
@@ -15,7 +13,7 @@ const userShema = new Schema(
     },
     email: {
       type: String,
-      match: [emailRegexp, "must be in format text@text.domain"],
+      // match: [emailRegexp, "must be in format text@text.domain"],
       required: [true, "Email is required field"],
       unique: true,
     },
@@ -31,14 +29,14 @@ const userShema = new Schema(
   },
   { versionKey: false, timestamps: true }
 );
-userShema.post("save", handleMongooseError);
+userSchema.post("save", handleMongooseError);
 
-const registerShema = Joi.object({
+const registerSchema = Joi.object({
   email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
+    // .email({
+    //   // minDomainSegments: 2,
+    //   // tlds: { allow: ["com", "net"] },
+    // })
     .required()
     .messages({
       "string.base": "email should be a type of 'text'",
@@ -55,12 +53,12 @@ const registerShema = Joi.object({
   }),
 });
 
-const loginShema = Joi.object({
+const loginSchema = Joi.object({
   email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
+    // .email({
+    //   minDomainSegments: 2,
+    //   tlds: { allow: ["com", "net"] },
+    // })
     .required()
     .messages({
       "string.base": "email should be a type of 'text'",
@@ -78,10 +76,10 @@ const loginShema = Joi.object({
 });
 
 const schemas = {
-  registerShema,
-  loginShema,
+  registerSchema,
+  loginSchema,
 };
 
-const User = model("user", userShema);
+const User = model("user", userSchema);
 
 module.exports = { User, schemas };

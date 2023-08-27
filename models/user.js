@@ -1,7 +1,8 @@
 const { Schema, model } = require("mongoose");
+const { handleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
-const { handleMongooseError } = require("../middlewares");
+
 
 // const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -30,7 +31,7 @@ const userShema = new Schema(
   },
   { versionKey: false, timestamps: true }
 );
-
+userShema.post("save", handleMongooseError);
 const registerShema = Joi.object({
   email: Joi.string()
     .email({

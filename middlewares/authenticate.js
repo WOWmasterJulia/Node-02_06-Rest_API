@@ -9,6 +9,9 @@ const { SECRET_KEY } = process.env;
 const authenticate = async (req, res, next) => {
   const { authenticate = "" } = req.headers;
   const [bearer, token] = authenticate.split(" ");
+  console.log(token);
+  
+  console.log(req.user);
   if (bearer !== "Bearer") {
     next(HttpError(401, "Not authorized"));
   }
@@ -19,6 +22,7 @@ const authenticate = async (req, res, next) => {
       next(HttpError(401, "No authorized"));
     }
     req.user = user; // запис хто робить запит
+    console.log(user);
     next();
   } catch {
     next(HttpError(401, "No authorize"));

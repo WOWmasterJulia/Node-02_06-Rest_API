@@ -9,7 +9,7 @@ const { SECRET_KEY } = process.env;
 const authenticate = async (req, res, next) => {
   // const { authenticate = "" } = req.headers;
   // const [bearer, token] = authorization.split(" ");
-  console.log(req.headers.authorization);
+  // console.log(req.headers.authorization);
   if (!req.headers.authorization) {
     next(HttpError(401, "Not authorization"));
     return
@@ -23,16 +23,15 @@ const authenticate = async (req, res, next) => {
   
   try {
     const { id } = jwt.verify(token, SECRET_KEY);
-    console.log(id);
+    // console.log(id);
     const user = await User.findById(id);
-    console.log(user);
+    // console.log(user);
     // if (!user || !user.token || user.token !== token) {
     if (!user) {
       next(HttpError(401, "No authorized"));
     }
     req.user = user; // запис хто робить запит
-    // console.log(user);
-    // console.log(req.user);
+
 
     next();
   } catch {

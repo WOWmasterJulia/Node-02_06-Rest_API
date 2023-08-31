@@ -15,7 +15,7 @@ app.use(logger(formatsLogger));
 app.use(cors()); // сокращенно Мидлвар(правило)
 app.use(express.json()); // смотрит какой тип Контент-тайп (в Постмане) и если json,
 // то строку переделывает на обьект
-app.use(express.static("public"));
+app.use(express.static("public")); //
 app.use("/users", usersRouter);
 app.use("/api/contacts", contactsRouter); 
 

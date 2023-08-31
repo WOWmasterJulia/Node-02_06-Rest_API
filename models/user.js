@@ -27,7 +27,7 @@ const userSchema = new Schema(
       default: "",
     },
     avatarURL: {
-      type: String,
+      type: String, //
       required: true,
     },
   },

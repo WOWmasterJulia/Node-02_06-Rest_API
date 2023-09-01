@@ -97,8 +97,15 @@ const updateAvatar = async (req, res) => {
   const filename = `${_id}_${originalname}`;
   const resultUpload = path.join(avatarsDir, filename); // создание окончательного
 
-  const avatarImage = await Jimp.read(tempUpload); //
-  await avatarImage.resize(250, 250).write(resultUpload); //
+  // const avatarImage = await Jimp.read(tempUpload); //
+  // await avatarImage.resize(250, 250).write(resultUpload); //
+
+
+   const avatarImage = await Jimp.read(tempUpload); //
+  await avatarImage
+    .autocrop()
+    .cover(250, 250, Jimp.HORIZONTAL_ALIGN_CENTER || Jimp.VERTICAL_ALIGN_MIDDLE)
+    .write(resultUpload); //
 
   await fs.rename(tempUpload, resultUpload); // перемещение
   const avatarURL = path.join("avatars", filename);

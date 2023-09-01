@@ -83,16 +83,26 @@ const logout = async (req, res) => {
 //
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
-  const { path: tempUpload, originalname } = req.file;
+  const { path: tempUpload, originalname } = req.file; // временный путь
+  // await Jimp.read(tempUpload)
+  //   .then((avatar) => {
+  //     return avatar
+  //       .resize(250, 250)
+  //       .quality(60)
+  //       .write(tempUpload);
+  //   })
+  //   .catch((err) => {
+  //     throw err;
+  //   });
   const filename = `${_id}_${originalname}`;
-  const resultUpload = path.join(avatarsDir, filename);
+  const resultUpload = path.join(avatarsDir, filename); // создание окончательного
 
   const avatarImage = await Jimp.read(tempUpload); //
-  await avatarImage.resize(250, 250).write(resultUpload);//
-  
-  await fs.rename(tempUpload, resultUpload);
+  await avatarImage.resize(250, 250).write(resultUpload); //
+
+  await fs.rename(tempUpload, resultUpload); // перемещение
   const avatarURL = path.join("avatars", filename);
-  await User.findByIdAndUpdate(_id, { avatarURL });
+  await User.findByIdAndUpdate(_id, { avatarURL }); // окончательный путь в базу
 
   res.json({ avatarURL });
 };

@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
-// const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //
 
 const userSchema = new Schema(
   {
@@ -30,7 +30,17 @@ const userSchema = new Schema(
       type: String, //
       required: true,
     },
-  },
+    
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationCode: {
+      type: String,
+      required: [true, 'Verify token is required'],
+    },
+},
+  
   { versionKey: false, timestamps: true }
 );
 userSchema.post("save", handleMongooseError);
@@ -55,6 +65,10 @@ const registerSchema = Joi.object({
     "string.min": `password should have min {#limit} symbols`,
     "string.max": `password should have max {#limit} symbols`,
   }),
+});
+
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(), //
 });
 
 const loginSchema = Joi.object({
@@ -82,6 +96,7 @@ const loginSchema = Joi.object({
 const schemas = {
   registerSchema,
   loginSchema,
+  emailSchema, //
 };
 
 const User = model("user", userSchema);
